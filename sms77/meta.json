@@ -1,0 +1,13 @@
+{
+    "headless": false,
+    "icon": "fa-cogs",
+    "label": "Settings",
+    "manager": "\\Sms77IceHrm\\Extension",
+    "menu": ["Sms77", "fa-envelope"],
+    "model_namespace": "\\Sms77IceHrm\\Model",
+    "user_levels": [
+        "Admin",
+        "Manager",
+        "User"
+    ]
+}
