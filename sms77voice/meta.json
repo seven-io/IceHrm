@@ -1,0 +1,13 @@
+{
+    "headless": false,
+    "icon": "fa-phone",
+    "label": "Voice",
+    "manager": "\\Sms77Voice\\Extension",
+    "menu": ["Sms77"],
+    "model_namespace": "\\Sms77Voice\\Model",
+    "user_levels": [
+        "Admin",
+        "Manager",
+        "User"
+    ]
+}

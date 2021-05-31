@@ -10,10 +10,15 @@
 
 ## Functionalities
 
-- Send bulk SMS
+- Send bulk SMS to employees
+- Issue bulk text-to-speech calls to employees
+- Filter employees by status
+- Filter employees by country
+- Filter employees by job title
+- Filter employees by employment status
 
 ### Support
 
-Need help? Feel free to [contact us](https://www.sms77.io/en/company/contact/).
+Need help? Feel free to [contact us](https://www.sms77.io/en/company/contact).
 
 [![MIT](https://img.shields.io/badge/License-MIT-teal.svg)](LICENSE)
