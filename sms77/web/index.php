@@ -11,7 +11,6 @@ include APP_BASE_PATH . 'header.php';
 include APP_BASE_PATH . 'modulejslibs.inc.php';
 
 $instance = BaseService::getInstance();
-$activeEmployees = (new Employee)->getActiveEmployees();
 
 Util::addSetting(
     Extension::SMS77_SETTING_KEY_API_KEY, 'Sms77 API key required for sending');

@@ -108,7 +108,7 @@ class Util {
         return $to;
     }
 
-    private static function isPOST(): bool {
+    public static function isPOST(): bool {
         return 'POST' === $_SERVER['REQUEST_METHOD'];
     }
 
