@@ -5,7 +5,6 @@ use Classes\BaseService;
 use Employees\Common\Model\Employee;
 use Employees\Common\Model\EmploymentStatus;
 use Jobs\Common\Model\JobTitle;
-use Model\Setting;
 use ReflectionClass;
 
 abstract class Filters {

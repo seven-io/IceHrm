@@ -44,7 +44,7 @@ if (Util::isPOST()) $instance->settingsManager->setSetting(
         const $apiKey = document.getElementById('sms77_apiKey');
         const $toggler = document.getElementById('sms77_apiKey_toggle');
 
-        $toggler.addEventListener('click', e => {
+        $toggler.addEventListener('click', () => {
             const isToggled = 'text' === $apiKey.type;
 
             $apiKey.type = isToggled ? 'password' : 'text';
