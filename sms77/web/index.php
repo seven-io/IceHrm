@@ -11,9 +11,6 @@ include_once APP_BASE_PATH . 'modulejslibs.inc.php';
 
 $instance = BaseService::getInstance();
 
-Util::addSetting(
-    Extension::SMS77_SETTING_KEY_API_KEY, 'Sms77 API key required for sending');
-
 if (Util::isPOST()) $instance->settingsManager->setSetting(
     Extension::SMS77_SETTING_KEY_API_KEY, $_POST['apiKey']);
 ?>

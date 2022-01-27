@@ -20,17 +20,6 @@ abstract class Filters {
 }
 
 abstract class Util {
-    public static function addSetting(
-        string $name, string $description, string $value = '') {
-        $setting = new Setting;
-        $setting->category = Extension::SMS77_SETTING_CATEGORY;
-        $setting->description = $description;
-        $setting->name = $name;
-        $setting->value = $value;
-
-        return $setting->Save();
-    }
-
     public static function sms() {
         self::request('sms', true);
     }
