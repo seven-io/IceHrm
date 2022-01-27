@@ -4,8 +4,8 @@ use Sms77IceHrm\Util;
 
 define('MODULE_PATH', __DIR__ . '/../');
 
-include APP_BASE_PATH . 'header.php';
-include APP_BASE_PATH . 'modulejslibs.inc.php';
+include_once APP_BASE_PATH . 'header.php';
+include_once APP_BASE_PATH . 'modulejslibs.inc.php';
 ?>
     <h1>Send Voice | Sms77</h1>
     <p>Issue bulk text-to-speech calls to employees.</p>

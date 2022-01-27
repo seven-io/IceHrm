@@ -8,20 +8,20 @@ use Jobs\Common\Model\JobTitle;
 use Model\Setting;
 use ReflectionClass;
 
-class Filters {
-    public const EMPLOYEE_EMPLOYMENT_STATUSES = 'employee_employment_statuses';
-    public const EMPLOYEE_COUNTRIES = 'employee_countries';
-    public const EMPLOYEE_JOB_TITLES = 'employee_job_titles';
-    public const EMPLOYEE_STATUSES = 'employee_statuses';
+abstract class Filters {
+    const EMPLOYEE_EMPLOYMENT_STATUSES = 'employee_employment_statuses';
+    const EMPLOYEE_COUNTRIES = 'employee_countries';
+    const EMPLOYEE_JOB_TITLES = 'employee_job_titles';
+    const EMPLOYEE_STATUSES = 'employee_statuses';
 
-    public static function values(): array {
+    public static function values() {
         return (new ReflectionClass(self::class))->getConstants();
     }
 }
 
-class Util {
+abstract class Util {
     public static function addSetting(
-        string $name, string $description, string $value = ''): bool {
+        string $name, string $description, string $value = '') {
         $setting = new Setting;
         $setting->category = Extension::SMS77_SETTING_CATEGORY;
         $setting->description = $description;
@@ -31,11 +31,11 @@ class Util {
         return $setting->Save();
     }
 
-    public static function sms(): void {
+    public static function sms() {
         self::request('sms', true);
     }
 
-    private static function request(string $endpoint, bool $multipleRecipients): void {
+    private static function request(string $endpoint, bool $multipleRecipients) {
         if (!self::isPOST()) return;
 
         $instance = BaseService::getInstance();
@@ -59,13 +59,11 @@ class Util {
 
         foreach (Filters::values() as $constant) unset($_POST[$constant]);
 
-        // die(var_dump(['_POST' => $_POST, 'recipients' => $recipients]));
-
         $json = [];
-        $ch = curl_init("https://gateway.sms77.io/api/$endpoint");
+        $ch = curl_init('https://gateway.sms77.io/api/' . $endpoint);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt(
-            $ch, CURLOPT_HTTPHEADER, ['SentWith: IceHrm', "X-Api-Key: $apiKey"]);
+            $ch, CURLOPT_HTTPHEADER, ['SentWith: IceHrm', 'X-Api-Key: ' . $apiKey]);
         foreach ($recipients as $to) {
             curl_setopt($ch, CURLOPT_POSTFIELDS, array_merge($_POST, [
                 'json' => 1,
@@ -78,8 +76,8 @@ class Util {
         self::renderAlert(json_encode(json_decode($json, JSON_PRETTY_PRINT)));
     }
 
-    private static function buildRecipients(): array {
-        $to = $_POST['to'] ?? '';
+    private static function buildRecipients() {
+        $to = isset($_POST['to']) ? $_POST['to'] : '';
 
         if ('' !== $to) return explode(',', $to);
 
@@ -88,19 +86,23 @@ class Util {
         $where = '';
 
         foreach ([
-                     'country' => $_POST[Filters::EMPLOYEE_COUNTRIES] ?? '',
+                     'country' => isset($_POST[Filters::EMPLOYEE_COUNTRIES]) 
+                         ? $_POST[Filters::EMPLOYEE_COUNTRIES] : '',
                      'employment_status' =>
-                         $_POST[Filters::EMPLOYEE_EMPLOYMENT_STATUSES] ?? '',
-                     'job_title' => $_POST[Filters::EMPLOYEE_JOB_TITLES] ?? '',
-                     'status' => $_POST[Filters::EMPLOYEE_STATUSES] ?? '',
+                         isset($_POST[Filters::EMPLOYEE_EMPLOYMENT_STATUSES]) 
+                             ? $_POST[Filters::EMPLOYEE_EMPLOYMENT_STATUSES] : '',
+                     'job_title' => isset($_POST[Filters::EMPLOYEE_JOB_TITLES])
+                         ? $_POST[Filters::EMPLOYEE_JOB_TITLES] : '',
+                     'status' => isset($_POST[Filters::EMPLOYEE_STATUSES]) 
+                         ? $_POST[Filters::EMPLOYEE_STATUSES] : '',
                  ] as $field => $param) {
             if ('' !== $param) {
-                $where .= self::prependWhere($where) . "$field in (?)";
+                $where .= self::prependWhere($where) . $field . ' in (?)';
                 $bind[] = $param;
             }
         }
         $where .= self::prependWhere($where)
-            . 'mobile_phone IS NOT NULL AND mobile_phone<>""';
+            . 'mobile_phone IS NOT NULL AND mobile_phone<>\'\'';
 
         foreach ((new Employee)->Find($where, $bind) as $employee)
             $to[] = $employee->mobile_phone;
@@ -108,11 +110,11 @@ class Util {
         return $to;
     }
 
-    public static function isPOST(): bool {
+    public static function isPOST() {
         return 'POST' === $_SERVER['REQUEST_METHOD'];
     }
 
-    private static function renderAlert(string $message): void {
+    private static function renderAlert(string $message) {
         ?>
         <div class='alert alert-warning alert-dismissible' role='alert'>
             <button aria-label='Close' class='close' data-dismiss='alert' type='button'>
@@ -124,20 +126,20 @@ class Util {
         <?php
     }
 
-    public static function getApiKey(BaseService $instance): string {
+    public static function getApiKey(BaseService $instance) {
         return $instance->settingsManager->getSetting(
             Extension::SMS77_SETTING_KEY_API_KEY);
     }
 
-    private static function prependWhere(string $where): string {
+    private static function prependWhere(string $where) {
         return '' === $where ? '' : ' and ';
     }
 
-    public static function voice(): void {
+    public static function voice() {
         self::request('voice', false);
     }
 
-    public static function renderFilters(): void {
+    public static function renderFilters() {
         ?>
         <fieldset>
             <legend>Filters</legend>
@@ -188,11 +190,11 @@ class Util {
         <?php
     }
 
-    private static function getEmployeeStatuses(): array {
+    private static function getEmployeeStatuses() {
         return self::fetchColumns('SELECT DISTINCT(status) from Employees', 'status');
     }
 
-    private static function fetchColumns(string $sql, string $column): array {
+    private static function fetchColumns(string $sql, string $column) {
         $arr = [];
         $db = BaseService::getInstance()->getDB();
         $statuses = $db->Execute($sql);
@@ -202,11 +204,11 @@ class Util {
         return $arr;
     }
 
-    private static function getEmployeeCountries(): array {
+    private static function getEmployeeCountries() {
         return self::fetchColumns('SELECT DISTINCT(country) from Employees', 'country');
     }
 
-    private static function getEmployeeJobTitles(): array {
+    private static function getEmployeeJobTitles() {
         $titles = [];
 
         foreach (self::fetchColumns('SELECT DISTINCT(job_title) from Employees',
@@ -219,7 +221,7 @@ class Util {
         return $titles;
     }
 
-    private static function getEmployeeEmploymentStatuses(): array {
+    private static function getEmployeeEmploymentStatuses() {
         $titles = [];
 
         foreach (self::fetchColumns('SELECT DISTINCT(employment_status) from Employees',
@@ -232,7 +234,7 @@ class Util {
         return $titles;
     }
 
-    public static function renderSubmit(): void {
+    public static function renderSubmit() {
         ?>
         <div class='form-group'>
             <button class='btn btn-info' type='submit'>Submit</button>
@@ -240,7 +242,7 @@ class Util {
         <?php
     }
 
-    public static function renderTo(): void {
+    public static function renderTo() {
         ?>
         <div class='form-group'>
             <label for='sms77_to'>To</label>
@@ -249,7 +251,7 @@ class Util {
         <?php
     }
 
-    public static function renderTextarea(int $maxLength): void {
+    public static function renderTextarea(int $maxLength) {
         ?>
         <div class='form-group'>
             <label class='control-label' for='sms77_text'>Text</label>

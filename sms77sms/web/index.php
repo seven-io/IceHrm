@@ -5,8 +5,8 @@ use Sms77IceHrm\Util;
 
 define('MODULE_PATH', __DIR__ . '/../');
 
-include APP_BASE_PATH . 'header.php';
-include APP_BASE_PATH . 'modulejslibs.inc.php';
+include_once APP_BASE_PATH . 'header.php';
+include_once APP_BASE_PATH . 'modulejslibs.inc.php';
 ?>
 <h1>Send SMS | Sms77</h1>
 <p>Send bulk SMS to employees.</p>
