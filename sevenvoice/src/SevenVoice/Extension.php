@@ -1,5 +1,5 @@
 <?php
-namespace Sms77Voice;
+namespace SevenVoice;
 
 use Classes\IceExtension;
 

@@ -1,5 +1,5 @@
 <?php
-namespace Sms77Sms;
+namespace SevenSms;
 
 use Classes\IceExtension;
 

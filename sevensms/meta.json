@@ -2,9 +2,9 @@
     "headless": false,
     "icon": "fa-sms",
     "label": "SMS",
-    "manager": "\\Sms77Sms\\Extension",
-    "menu": ["Sms77"],
-    "model_namespace": "\\Sms77Sms\\Model",
+    "manager": "\\SevenSms\\Extension",
+    "menu": ["seven"],
+    "model_namespace": "\\SevenSms\\Model",
     "user_levels": [
         "Admin",
         "Manager",

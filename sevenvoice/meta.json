@@ -2,9 +2,9 @@
     "headless": false,
     "icon": "fa-phone",
     "label": "Voice",
-    "manager": "\\Sms77Voice\\Extension",
-    "menu": ["Sms77"],
-    "model_namespace": "\\Sms77Voice\\Model",
+    "manager": "\\SevenVoice\\Extension",
+    "menu": ["seven"],
+    "model_namespace": "\\SevenVoice\\Model",
     "user_levels": [
         "Admin",
         "Manager",

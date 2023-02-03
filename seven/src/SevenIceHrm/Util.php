@@ -1,5 +1,5 @@
 <?php
-namespace Sms77IceHrm;
+namespace SevenIceHrm;
 
 use Classes\BaseService;
 use Employees\Common\Model\Employee;
@@ -48,7 +48,7 @@ abstract class Util {
         foreach (Filters::values() as $constant) unset($_POST[$constant]);
 
         $json = [];
-        $ch = curl_init('https://gateway.sms77.io/api/' . $endpoint);
+        $ch = curl_init('https://gateway.seven.io/api/' . $endpoint);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt(
             $ch, CURLOPT_HTTPHEADER, ['SentWith: IceHrm', 'X-Api-Key: ' . $apiKey]);
@@ -74,14 +74,14 @@ abstract class Util {
         $where = '';
 
         foreach ([
-                     'country' => isset($_POST[Filters::EMPLOYEE_COUNTRIES]) 
+                     'country' => isset($_POST[Filters::EMPLOYEE_COUNTRIES])
                          ? $_POST[Filters::EMPLOYEE_COUNTRIES] : '',
                      'employment_status' =>
-                         isset($_POST[Filters::EMPLOYEE_EMPLOYMENT_STATUSES]) 
+                         isset($_POST[Filters::EMPLOYEE_EMPLOYMENT_STATUSES])
                              ? $_POST[Filters::EMPLOYEE_EMPLOYMENT_STATUSES] : '',
                      'job_title' => isset($_POST[Filters::EMPLOYEE_JOB_TITLES])
                          ? $_POST[Filters::EMPLOYEE_JOB_TITLES] : '',
-                     'status' => isset($_POST[Filters::EMPLOYEE_STATUSES]) 
+                     'status' => isset($_POST[Filters::EMPLOYEE_STATUSES])
                          ? $_POST[Filters::EMPLOYEE_STATUSES] : '',
                  ] as $field => $param) {
             if ('' !== $param) {
@@ -116,7 +116,7 @@ abstract class Util {
 
     public static function getApiKey(BaseService $instance) {
         return $instance->settingsManager->getSetting(
-            Extension::SMS77_SETTING_KEY_API_KEY);
+            Extension::SEVEN_SETTING_KEY_API_KEY);
     }
 
     private static function prependWhere(string $where) {
@@ -233,8 +233,8 @@ abstract class Util {
     public static function renderTo() {
         ?>
         <div class='form-group'>
-            <label for='sms77_to'>To</label>
-            <input class='form-control' id='sms77_to' name='to'/>
+            <label for='seven_to'>To</label>
+            <input class='form-control' id='seven_to' name='to'/>
         </div>
         <?php
     }
@@ -242,8 +242,8 @@ abstract class Util {
     public static function renderTextarea(int $maxLength) {
         ?>
         <div class='form-group'>
-            <label class='control-label' for='sms77_text'>Text</label>
-            <textarea class='form-control' id='sms77_text' maxlength='<?= $maxLength ?>'
+            <label class='control-label' for='seven_text'>Text</label>
+            <textarea class='form-control' id='seven_text' maxlength='<?= $maxLength ?>'
                       name='text' required rows='5'></textarea>
         </div>
         <?php

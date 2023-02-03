@@ -1,14 +1,14 @@
 <?php
-namespace Sms77IceHrm;
+namespace SevenIceHrm;
 
 use Classes\IceExtension;
 use Model\Setting;
 
 class Extension extends IceExtension {
-    const SMS77_SETTING_CATEGORY = 'Sms77';
-    const SMS77_SETTING_KEY_API_KEY = 'Sms77: API Key';
+    const SEVEN_SETTING_CATEGORY = 'seven';
+    const SEVEN_SETTING_KEY_API_KEY = 'seven: API Key';
     const SETTINGS = [
-        self::SMS77_SETTING_KEY_API_KEY => 'Sms77 API key required for sending',
+        self::SEVEN_SETTING_KEY_API_KEY => 'seven API key required for sending',
     ];
 
     public function install() {
@@ -25,7 +25,7 @@ class Extension extends IceExtension {
     protected static function addSetting(
         string $name, string $description, string $value = '') {
         $setting = new Setting;
-        $setting->category = self::SMS77_SETTING_CATEGORY;
+        $setting->category = self::SEVEN_SETTING_CATEGORY;
         $setting->description = $description;
         $setting->name = $name;
         $setting->value = $value;
@@ -35,7 +35,7 @@ class Extension extends IceExtension {
 
     protected static function deleteSetting(string $name) {
         $setting = new Setting;
-        $setting->Load("name = ? AND category = ?", [$name, self::SMS77_SETTING_CATEGORY]);
+        $setting->Load("name = ? AND category = ?", [$name, self::SEVEN_SETTING_CATEGORY]);
 
         return $setting->Delete();
     }
