@@ -16,18 +16,7 @@ include_once APP_BASE_PATH . 'modulejslibs.inc.php';
         <div class='row form-group'>
             <div class='col-md-6 no-padding'>
                 <label for='seven_from'>From</label>
-                <input class='form-control' id='seven_from' list='numbers' maxlength='16'
-                       name='from'/>
-
-                <datalist id='numbers'>
-                    <option value='+4915126716517'>Germany (Telekom)</option>
-                    <option value='+491625453093'>Germany (Vodafone)</option>
-                    <option value='+4917626702044'>Germany (o2)</option>
-                    <option value='+41798072355'>Switzerland (Swisscom)</option>
-                    <option value='+447449241777'>UK (Hutchison)</option>
-                    <option value='+48732484001'>Poland (Play PL)</option>
-                    <option value='+13134378004'>USA</option>
-                </datalist>
+                <input class='form-control' id='seven_from' maxlength='16' name='from'/>
             </div>
 
             <div class='col-md-6 no-padding'>

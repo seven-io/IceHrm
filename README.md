@@ -6,8 +6,7 @@ Send SMS and make text-to-speech calls to employees via [seven](https://www.seve
 
 ## Prerequisites
 
-- [seven](https://www.seven.io) [API Key](https://help.seven.io/en/api-key-access) - can be created in
-  your [developer dashboard](https://app.seven.io/developer)
+- [seven API Key](https://help.seven.io/en/api-key-access)
 - [IceHrm](https://icehrm.com/)
 
 ## Installation
