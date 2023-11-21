@@ -15,8 +15,6 @@ include_once APP_BASE_PATH . 'modulejslibs.inc.php';
     <?php Util::renderFilters(); ?>
 
     <div class='form-group'>
-        <label>Debug<input name='debug' type='checkbox' value='1'/></label>
-
         <label>Flash<input name='flash' type='checkbox' value='1'/></label>
 
         <label>No Reload<input name='no_reload' type='checkbox' value='1'/></label>
