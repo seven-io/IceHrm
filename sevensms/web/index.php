@@ -17,8 +17,6 @@ include_once APP_BASE_PATH . 'modulejslibs.inc.php';
     <div class='form-group'>
         <label>Flash<input name='flash' type='checkbox' value='1'/></label>
 
-        <label>No Reload<input name='no_reload' type='checkbox' value='1'/></label>
-
         <label>Performance Tracking<input name='performance_tracking' type='checkbox'
                                           value='1'/></label>
     </div>
